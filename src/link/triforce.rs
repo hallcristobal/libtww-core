@@ -1,3 +1,4 @@
+use addrs::link::TRIFORCE;
 use game::flag::Flag;
 
 #[derive(Copy, Clone)]
@@ -5,7 +6,7 @@ pub struct TriforcePiece(pub u8);
 
 impl From<TriforcePiece> for Flag {
     fn from(t: TriforcePiece) -> Flag {
-        Flag(0x803B81C6, t.0)
+        Flag(TRIFORCE, t.0)
     }
 }
 

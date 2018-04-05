@@ -1,3 +1,7 @@
+use Addr;
+use addrs::system::{FREE, MEMALIGN};
+use core::fmt;
+use core::mem::transmute;
 use core::ptr::null_mut;
 
 extern "C" {
@@ -10,17 +14,34 @@ extern "C" {
 }
 
 #[no_mangle]
-pub extern "C" fn malloc(size: usize) -> *mut u8 {
-    unsafe { game_memalign(-4, size) }
+pub extern "C" fn malloc(size: size_t) -> *mut c_void {
+    let memalign =
+        unsafe { transmute::<Addr, extern "C" fn(size_t, size_t) -> *mut c_void>(MEMALIGN) };
+    memalign(0xFFFFFFFC, size)
 }
 
 #[no_mangle]
-pub extern "C" fn free(ptr: *mut u8) {
-    unsafe { game_free(ptr) }
+pub extern "C" fn posix_memalign(
+    memptr: *mut *mut c_void,
+    alignment: size_t,
+    size: size_t,
+) -> c_int {
+    let memalign =
+        unsafe { transmute::<Addr, extern "C" fn(size_t, size_t) -> *mut c_void>(MEMALIGN) };
+    unsafe {
+        *memptr = memalign(alignment, size);
+    }
+    0
 }
 
 #[no_mangle]
-pub extern "C" fn realloc(ptr: *mut u8, size: usize) -> *mut u8 {
+pub extern "C" fn free(ptr: *mut c_void) {
+    let free = unsafe { transmute::<Addr, extern "C" fn(*mut c_void)>(FREE) };
+    free(ptr);
+}
+
+#[no_mangle]
+pub extern "C" fn realloc(ptr: *mut c_void, size: size_t) -> *mut c_void {
     let new_data = malloc(size);
 
     if ptr != null_mut() {

@@ -1,3 +1,4 @@
+use addrs::warping::ENTRANCE;
 use system::memory::{read_str, reference};
 
 #[repr(C, packed)]
@@ -19,7 +20,7 @@ impl Clone for Entrance {
 
 impl Entrance {
     pub fn last_entrance() -> &'static mut Entrance {
-        reference(0x803BD23C)
+        reference(ENTRANCE)
     }
 
     pub fn stage_name(&self) -> &'static str {

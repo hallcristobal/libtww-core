@@ -1,4 +1,5 @@
 use super::inventory::Inventory;
+use addrs::link::EQUIPS;
 use system::memory::reference;
 
 #[repr(C, packed)]
@@ -10,7 +11,7 @@ pub struct Equips {
 
 impl Equips {
     pub fn get() -> &'static mut Equips {
-        reference(0x803B8111)
+        reference(EQUIPS)
     }
 
     pub fn x_item_id(&self) -> u8 {

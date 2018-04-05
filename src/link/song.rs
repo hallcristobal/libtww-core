@@ -1,3 +1,4 @@
+use addrs::link::SONG;
 use game::flag::Flag;
 
 #[derive(Copy, Clone)]
@@ -5,7 +6,7 @@ pub struct Song(pub u8);
 
 impl From<Song> for Flag {
     fn from(s: Song) -> Flag {
-        Flag(0x803B81C5, s.0)
+        Flag(SONG, s.0)
     }
 }
 

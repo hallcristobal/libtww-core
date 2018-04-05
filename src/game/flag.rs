@@ -1,3 +1,5 @@
+use Addr;
+use addrs::game::FLAGS;
 use system::memory::{ptr, read};
 use Addr;
 
@@ -7,7 +9,7 @@ pub struct Flag(pub Addr, pub u8);
 macro_rules! flags {
     ($($name:ident: $addr:expr, $bit:expr)*) => {
         $(
-            pub const $name: Flag = Flag(0x803B8700 | $addr, 1 << $bit);
+            pub const $name: Flag = Flag(FLAGS | $addr, 1 << $bit);
         )*
     };
 }

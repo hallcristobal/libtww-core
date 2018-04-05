@@ -1,18 +1,19 @@
+use addrs::game::{ENTRANCE, NEW_GAME_PLUS, PICTURE_COUNT, TRIFORCE_SET};
 use system::memory::{read, reference};
 use warping::Entrance;
 
 pub fn is_new_game_plus() -> bool {
-    read(0x803B82A8)
+    read(NEW_GAME_PLUS)
 }
 
 pub fn get_picture_count() -> u8 {
-    read(0x803B8170)
+    read(PICTURE_COUNT)
 }
 
 pub fn get_triforce_set() -> u8 {
-    read(0x803B82A9)
+    read(TRIFORCE_SET)
 }
 
 pub fn get_entrance() -> &'static mut Entrance {
-    reference(0x803B8138)
+    reference(ENTRANCE)
 }

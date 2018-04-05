@@ -20,6 +20,7 @@ static A: alloc_system::System = alloc_system::System;
 
 extern crate arrayvec;
 
+pub mod addrs;
 pub mod game;
 pub mod link;
 pub mod system;

@@ -1,7 +1,5 @@
+use addrs::link::INVENTORY;
 use system::memory::{read, reference, write};
-use Addr;
-
-pub const OFFSET: Addr = 0x803B8144;
 
 #[repr(C, packed)]
 pub struct Inventory {
@@ -57,14 +55,14 @@ pub struct DeliveryBag {
 
 impl Inventory {
     pub fn get() -> &'static mut Inventory {
-        reference(OFFSET)
+        reference(INVENTORY)
     }
 
     pub fn get_by_slot_id(slot_id: usize) -> u8 {
-        read(OFFSET + slot_id)
+        read(INVENTORY + slot_id)
     }
 
     pub fn set_by_slot_id(slot_id: usize, item_id: u8) {
-        write(OFFSET + slot_id, item_id)
+        write(INVENTORY + slot_id, item_id)
     }
 }

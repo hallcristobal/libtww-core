@@ -1,3 +1,4 @@
+use addrs::warping::WARP;
 use system::memory::{reference, write, write_str};
 use warping::Entrance;
 use warping::FadeOut;
@@ -37,10 +38,10 @@ impl Warp {
     }
 
     pub fn execute(self) {
-        write(0x803BD248, self);
+        write(WARP, self);
     }
 
     pub fn last_exit() -> &'static Warp {
-        reference(0x803BD248)
+        reference(WARP)
     }
 }

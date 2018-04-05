@@ -1,3 +1,4 @@
+use addrs::link::PEARL;
 use game::flag::Flag;
 
 #[derive(Copy, Clone)]
@@ -5,7 +6,7 @@ pub struct Pearl(pub u8);
 
 impl From<Pearl> for Flag {
     fn from(t: Pearl) -> Flag {
-        Flag(0x803B81C7, t.0)
+        Flag(PEARL, t.0)
     }
 }
 

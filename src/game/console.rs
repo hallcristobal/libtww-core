@@ -1,3 +1,4 @@
+use addrs::game::CONSOLE;
 use core::fmt::{Error, Write};
 use system::{libc, memory};
 
@@ -45,7 +46,7 @@ impl Color {
 impl Console {
     pub fn get() -> &'static mut Console {
         // ArenaLow + 0x915C0
-        memory::reference(0x804E1A60)
+        memory::reference(CONSOLE)
     }
 
     pub fn setup(&mut self) {

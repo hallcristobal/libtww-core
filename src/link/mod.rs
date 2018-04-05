@@ -1,4 +1,5 @@
 use self::quest_items::{QuestItems, Shield, Sword};
+use addrs::link::*;
 use core::fmt::{self, Display};
 use system::memory::{ptr, read, read_str, reference, write};
 use {Addr, Coord};
@@ -10,9 +11,6 @@ pub mod pearl;
 pub mod quest_items;
 pub mod song;
 pub mod triforce;
-
-pub const OFFSET: Addr = 0x803B8108;
-pub const POSITION_OFFSET: Addr = 0x803d78fc;
 
 #[repr(C, packed)]
 pub struct Link {
@@ -31,7 +29,7 @@ pub struct Link {
 
 impl Link {
     pub fn get() -> &'static mut Link {
-        reference(OFFSET)
+        reference(LINK)
     }
 
     pub fn position() -> &'static mut Coord {
@@ -39,39 +37,39 @@ impl Link {
     }
 
     pub fn velocity_side() -> &'static mut f32 {
-        reference(0x80398308)
+        reference(VELOCITY_SIDE)
     }
 
     pub fn velocity_front() -> &'static mut f32 {
-        reference(0x8039830C)
+        reference(VELOCITY_FRONT)
     }
 
     pub fn speed() -> &'static mut f32 {
-        reference(0x80398310)
+        reference(SPEED)
     }
 
     pub fn room() -> u8 {
-        read(0x803B9230)
+        read(ROOM)
     }
 
     pub fn horizontal_movement_direction() -> u16 {
-        read(0x803EA3CA)
+        read(HORIZONTAL_MOVEMENT_DIRECTION)
     }
 
     pub fn air_meter() -> u16 {
-        read(0x803BDC62)
+        read(AIR_METER)
     }
 
     pub fn set_air_meter(frames: u16) {
-        write(0x803BDC62, frames);
+        write(AIR_METER, frames);
     }
 
     pub fn name() -> &'static str {
-        read_str(ptr(0x803B8264))
+        read_str(ptr(NAME))
     }
 
     pub fn activate_storage() {
-        write(0x803BD3A3, true);
+        write(STORAGE, true);
     }
 
     pub fn set_sword(&mut self, sword: Sword) {
@@ -87,7 +85,7 @@ impl Link {
     }
 
     pub fn set_collision(collision: CollisionType) {
-        let ptr = ptr::<u16>(read::<Addr>(0x803BDC40) + (0x24B << 1));
+        let ptr = ptr::<u16>(read::<Addr>(COLLISION_PTR) + (0x24B << 1));
         match collision {
             CollisionType::Default => unsafe {
                 *ptr &= 0xFFFF ^ 0x4004;
@@ -104,7 +102,7 @@ impl Link {
     pub fn collision() -> CollisionType {
         // I read the address stored at 0x803BDC40 add 0x24B << 1 to it
         // and that's the address of the collision flags
-        let data = read::<u16>(read::<Addr>(0x803BDC40) + (0x24B << 1));
+        let data = read::<u16>(read::<Addr>(COLLISION_PTR) + (0x24B << 1));
         let door_cancel_bit = data & 0x4000 != 0;
         let chest_storage_bit = data & 0x4 != 0;
         match (door_cancel_bit, chest_storage_bit) {

@@ -1,3 +1,4 @@
+use addrs::game::{CONTROLLER_BUTTONS_DOWN, CONTROLLER_BUTTONS_PRESSED};
 use system::memory::{read, write};
 
 pub const DPAD_LEFT: u16 = 0x0001;
@@ -14,19 +15,19 @@ pub const Y: u16 = 0x0800;
 pub const START: u16 = 0x1000;
 
 pub fn buttons_down() -> u16 {
-    read(0x803E0D2A)
+    read(CONTROLLER_BUTTONS_DOWN)
 }
 
 pub fn buttons_pressed() -> u16 {
-    read(0x803E0D2E)
+    read(CONTROLLER_BUTTONS_PRESSED)
 }
 
 pub fn set_buttons_down(buttons: u16) {
-    write(0x803E0D2A, buttons)
+    write(CONTROLLER_BUTTONS_DOWN, buttons)
 }
 
 pub fn set_buttons_pressed(buttons: u16) {
-    write(0x803E0D2E, buttons)
+    write(CONTROLLER_BUTTONS_PRESSED, buttons)
 }
 
 pub fn is_down(buttons: u16) -> bool {

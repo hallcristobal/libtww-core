@@ -115,6 +115,7 @@ items! {
     EMPTY: 0xFF
 }
 
+use addrs::link::ITEM_SPAWN;
 use core::mem::transmute;
 use game::layer;
 use {Addr, Coord};
@@ -123,7 +124,7 @@ pub fn spawn(coord: &Coord, item: u8) {
     layer::switch_to_safe_layer();
 
     let func =
-        unsafe { transmute::<Addr, extern "C" fn(*const Coord, u8, u32, u32, u32)>(0x80026920) };
+        unsafe { transmute::<Addr, extern "C" fn(*const Coord, u8, u32, u32, u32)>(ITEM_SPAWN) };
     func(coord, item, 0x7f, 0, 0);
 }
 

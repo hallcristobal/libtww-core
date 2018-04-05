@@ -1,3 +1,4 @@
+use addrs::game::WINDFALL_FLOWERS;
 use link::inventory::Inventory;
 use system::memory::reference;
 
@@ -23,7 +24,7 @@ pub struct WindfallFlowers {
 
 impl WindfallFlowers {
     pub fn get() -> &'static mut WindfallFlowers {
-        reference(0x803B8814)
+        reference(WINDFALL_FLOWERS)
     }
 
     pub fn activate_pedestals() {

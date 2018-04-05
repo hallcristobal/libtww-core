@@ -1,3 +1,4 @@
+use addrs::link::QUEST_ITEMS;
 use system::memory::reference;
 
 #[repr(u8)]
@@ -37,7 +38,7 @@ pub struct QuestItems {
 
 impl QuestItems {
     pub fn get() -> &'static mut QuestItems {
-        reference(0x803B81BC)
+        reference(QUEST_ITEMS)
     }
 }
 
