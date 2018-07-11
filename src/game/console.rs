@@ -80,6 +80,13 @@ impl Line {
         }
     }
 
+    pub fn write_at(&mut self, pos: usize) -> LineWriter{
+        LineWriter {
+            line: self,
+            position: pos
+        }
+    }
+
     pub fn len(&self) -> usize {
         libc::strlen(self.text.as_ptr())
     }
