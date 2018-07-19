@@ -90,7 +90,8 @@ pub unsafe extern "C" fn floorf(mut var0: f32) -> f32 {
                     break 'label0;
                 }
                 (var0 + f32::from_bits(0x7B800000)).to_bits();
-                var3 = (var2.wrapping_shr(31i32 as u32) & var4).wrapping_add(var2) & (-8388608i32).wrapping_shr(var3 as u32);
+                var3 = (var2.wrapping_shr(31i32 as u32) & var4).wrapping_add(var2)
+                    & (-8388608i32).wrapping_shr(var3 as u32);
                 break 'label1;
             }
             (var0 + f32::from_bits(0x7B800000)).to_bits();
@@ -98,7 +99,15 @@ pub unsafe extern "C" fn floorf(mut var0: f32) -> f32 {
             if (var2 > -1i32) as i32 != 0 {
                 break 'label1;
             }
-            var3 = { let a = -1082130432i32; let b = var2; if var2 & 2147483647i32 != 0 { a } else { b } };
+            var3 = {
+                let a = -1082130432i32;
+                let b = var2;
+                if var2 & 2147483647i32 != 0 {
+                    a
+                } else {
+                    b
+                }
+            };
             break;
         }
         var0 = f32::from_bits(var3 as u32);

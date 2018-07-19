@@ -80,10 +80,10 @@ impl Line {
         }
     }
 
-    pub fn write_at(&mut self, pos: usize) -> LineWriter{
+    pub fn write_at(&mut self, pos: usize) -> LineWriter {
         LineWriter {
             line: self,
-            position: pos
+            position: pos,
         }
     }
 

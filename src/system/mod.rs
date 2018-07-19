@@ -6,6 +6,7 @@ pub mod libc;
 #[cfg(feature = "math")]
 pub mod math;
 pub mod memory;
+pub mod mutex;
 pub mod tww;
 
 pub use self::tww::*;

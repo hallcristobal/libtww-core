@@ -1,8 +1,8 @@
 #![allow(non_snake_case)]
 
-use Addr;
 use core::mem::transmute;
 use system::memory::{read, write};
+use Addr;
 
 extern "C" {
     #[link_name = "JAIZelBasic::getRandomU32(u32)"]
