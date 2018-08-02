@@ -23,7 +23,8 @@ pub enum Shield {
 pub enum HerosCharm {
     None = 0,
     Disabled = 1,
-    Enabled = 2,
+    // 2 is a broken value
+    Enabled = 3,
 }
 
 #[repr(C, packed)]
