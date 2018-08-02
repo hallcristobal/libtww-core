@@ -550,7 +550,7 @@ pub fn submit_u32(val: u32) {
     }
 }
 
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, PartialEq)]
 #[repr(C)]
 pub struct Mtx {
     pub cells: [[f32; 4]; 3],
