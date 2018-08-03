@@ -1,5 +1,3 @@
-use core::num::Float;
-
 #[no_mangle]
 pub unsafe extern "C" fn sqrtf(x: f32) -> f32 {
     extern "C" {
