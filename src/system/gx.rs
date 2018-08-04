@@ -436,6 +436,93 @@ pub const CTF_RG8: u8 = 0xB | _TF_CTF;
 /// For copying 8 bits from green, 8 bits from blue
 pub const CTF_GB8: u8 = 0xC | _TF_CTF;
 
+//tevcolorarg TEV color combiner input
+
+/// Use the color value from previous TEV stage
+pub const CC_CPREV: u8 = 0;
+/// Use the alpha value from previous TEV stage
+pub const CC_APREV: u8 = 1;
+/// Use the color value from the color/output register 0
+pub const CC_C0: u8 = 2;
+/// Use the alpha value from the color/output register 0
+pub const CC_A0: u8 = 3;
+/// Use the color value from the color/output register 1
+pub const CC_C1: u8 = 4;
+/// Use the alpha value from the color/output register 1
+pub const CC_A1: u8 = 5;
+/// Use the color value from the color/output register 2
+pub const CC_C2: u8 = 6;
+/// Use the alpha value from the color/output register 2
+pub const CC_A2: u8 = 7;
+/// Use the color value from texture
+pub const CC_TEXC: u8 = 8;
+/// Use the alpha value from texture
+pub const CC_TEXA: u8 = 9;
+/// Use the color value from rasterizer
+pub const CC_RASC: u8 = 10;
+/// Use the alpha value from rasterizer
+pub const CC_RASA: u8 = 11;
+pub const CC_ONE: u8 = 12;
+pub const CC_HALF: u8 = 13;
+pub const CC_KONST: u8 = 14;
+/// Use to pass zero value
+pub const CC_ZERO: u8 = 15;
+
+//tevalphaarg TEV alpha combiner input
+
+/// Use the alpha value from previous TEV stage
+pub const CA_APREV: u8 = 0;
+/// Use the alpha value from the color/output register 0
+pub const CA_A0: u8 = 1;
+/// Use the alpha value from the color/output register 1
+pub const CA_A1: u8 = 2;
+/// Use the alpha value from the color/output register 2
+pub const CA_A2: u8 = 3;
+/// Use the alpha value from texture
+pub const CA_TEXA: u8 = 4;
+/// Use the alpha value from rasterizer
+pub const CA_RASA: u8 = 5;
+pub const CA_KONST: u8 = 6;
+/// Use to pass zero value
+pub const CA_ZERO: u8 = 7;
+
+// addtogroup tevop TEV combiner operator
+pub const TEV_ADD: u8 = 0;
+pub const TEV_SUB: u8 = 1;
+pub const TEV_COMP_R8_GT: u8 = 8;
+pub const TEV_COMP_R8_EQ: u8 = 9;
+pub const TEV_COMP_GR16_GT: u8 = 10;
+pub const TEV_COMP_GR16_EQ: u8 = 11;
+pub const TEV_COMP_BGR24_GT: u8 = 12;
+pub const TEV_COMP_BGR24_EQ: u8 = 13;
+pub const TEV_COMP_RGB8_GT: u8 = 14;
+pub const TEV_COMP_RGB8_EQ: u8 = 15;
+/// for alpha channel
+pub const TEV_COMP_A8_GT: u8 = TEV_COMP_RGB8_GT;
+/// for alpha channel
+pub const TEV_COMP_A8_EQ: u8 = TEV_COMP_RGB8_EQ;
+
+//addtogroup tevcoloutreg TEV color/output register
+/// Default register for passing results from one stage to another. = */;
+pub const TEVPREV: u8 = 0;
+pub const TEVREG0: u8 = 1;
+pub const TEVREG1: u8 = 2;
+pub const TEVREG2: u8 = 3;
+pub const MAX_TEVREG: u8 = 4;
+
+// addtogroup tevscale TEV scale value
+pub const CS_SCALE_1: u8 = 0;
+pub const CS_SCALE_2: u8 = 1;
+pub const CS_SCALE_4: u8 = 2;
+pub const CS_DIVIDE_2: u8 = 3;
+pub const MAX_TEVSCALE: u8 = 4;
+
+//addtogroup tevbias TEV bias value
+pub const TB_ZERO: u8 = 0;
+pub const TB_ADDHALF: u8 = 1;
+pub const TB_SUBHALF: u8 = 2;
+pub const MAX_TEVBIAS: u8 = 3;
+
 // Text Wrap Mode
 pub const CLAMP: u8 = 0;
 pub const REPEAT: u8 = 1;
@@ -471,6 +558,14 @@ extern "C" {
     pub fn set_num_tex_gens(nr: u32);
     #[link_name = "GXSetTevOrder"]
     pub fn set_tev_order(tevstage: u8, texcoord: u8, texmap: u32, color: u8);
+    #[link_name = "GXSetTevColorIn"]
+    pub fn set_tev_color_in(tevstage: u8, a: u8, b: u8, c: u8, d: u8);
+    #[link_name = "GXSetTevAlphaIn"]
+    pub fn set_tev_alpha_in(tevstage: u8, a: u8, b: u8, c: u8, d: u8);
+    #[link_name = "GXSetTevColorOp"]
+    pub fn set_tev_color_op(tevstage: u8, tevop: u8, tevbias: u8, tevscale: u8, clamp: u8, tevregid: u8);
+    #[link_name = "GXSetTevAlphaOp"]
+    pub fn set_tev_alpha_op(tevstage: u8, tevop: u8, tevbias: u8, tevscale: u8, clamp: u8, tevregid: u8);
     #[link_name = "GXSetCullMode"]
     pub fn set_cull_mode(mode: u8);
     #[link_name = "GXLoadTexMtxImm"]
