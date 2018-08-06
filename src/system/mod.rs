@@ -1,5 +1,4 @@
 pub mod game_info;
-pub mod gx;
 pub mod j2d;
 pub mod j3d;
 pub mod libc;
@@ -8,5 +7,6 @@ pub mod math;
 pub mod memory;
 pub mod mutex;
 pub mod tww;
+pub use gcn::{gx, os, report_panic};
 
 pub use self::tww::*;

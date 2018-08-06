@@ -3,6 +3,12 @@
 #![feature(lang_items)]
 #![cfg_attr(feature = "alloc", feature (alloc, alloc_system, use_extern_macros))]
 #![no_std]
+#![cfg_attr(
+    feature = "alloc",
+    feature(
+        alloc, global_allocator, alloc_system, allocator_api, allocator_internals, macro_reexport
+    )
+)]
 #![cfg_attr(feature = "math", feature(core_float))]
 
 extern crate arrayvec;
@@ -14,10 +20,9 @@ extern crate alloc_system;
 #[cfg(feature = "alloc")]
 #[global_allocator]
 static A: alloc_system::System = alloc_system::System;
-#[cfg(feature = "alloc")]
-pub use core_alloc::vec;
-#[cfg(feature = "alloc")]
-pub use core_alloc::format;
+
+extern crate arrayvec;
+extern crate gcn;
 
 pub mod game;
 pub mod link;
