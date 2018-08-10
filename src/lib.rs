@@ -3,15 +3,8 @@
 #![feature(lang_items)]
 #![cfg_attr(feature = "alloc", feature (alloc, alloc_system, use_extern_macros))]
 #![no_std]
-#![cfg_attr(
-    feature = "alloc",
-    feature(
-        alloc, global_allocator, alloc_system, allocator_api, allocator_internals, macro_reexport
-    )
-)]
 #![cfg_attr(feature = "math", feature(core_float))]
 
-extern crate arrayvec;
 #[cfg(feature = "alloc")]
 extern crate alloc as core_alloc;
 #[cfg(feature = "alloc")]
@@ -77,5 +70,6 @@ pub mod alloc {
     pub use core_alloc::vec::Vec;
     pub use core_alloc::boxed::Box;
     pub use core_alloc::string::String;
+    pub use core_alloc::format;
 }
 

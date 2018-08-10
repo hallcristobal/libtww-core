@@ -26,7 +26,11 @@ pub struct Inventory {
     pub delivery_bag_slot: u8,
     pub hookshot_slot: u8,
     pub skull_hammer_slot: u8,
-    _p0: [u8; 18],
+    _p0: [u8; 4],
+    pub has_spoils_bag: bool, // 815D
+    _p9: [u8; 6],
+    pub has_bait_bag: bool, // 8164
+    _p8: [u8; 6],
     pub has_delivery_bag: bool, // 6B
     _p1: [u8; 5],
     pub arrow_count: u8, // 71
@@ -38,6 +42,15 @@ pub struct Inventory {
     pub spoils_bag: SpoilsBag,     // 7E
     pub bait_bag: BaitBag,         // 86
     pub delivery_bag: DeliveryBag, // 8E
+    _p7: [u8; 14],
+    pub skull_necklaces: u8, // 81A4
+    pub boko_baba_seeds: u8, // 81A5
+    pub golden_feathers: u8, // 81A6
+    pub knights_crests: u8, // 81A7
+    pub red_chu_jellys: u8, // 81A8
+    pub green_chu_jellys: u8, // 81A9
+    pub blue_chu_jellys: u8, // 81AA
+    pub joy_pendants: u8, // 81AB
 }
 
 #[repr(C, packed)]
