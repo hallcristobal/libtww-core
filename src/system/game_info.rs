@@ -1,5 +1,3 @@
-use super::gx::Mtx44;
-
 #[repr(C)]
 pub struct GameInfo {
     unknown: [u8; 0x5cec],
@@ -9,7 +7,7 @@ pub struct GameInfo {
 #[repr(C)]
 pub struct ProjectionBase {
     unknown: [u8; 256],
-    pub projection_mtx: Mtx44,
+    pub projection_mtx: gcn::gx::Mtx44,
 }
 
 extern "C" {

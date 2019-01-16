@@ -1,29 +1,15 @@
 #![feature(const_fn)]
-#![feature(panic_implementation)]
-#![feature(lang_items)]
-#![cfg_attr(feature = "alloc", feature (alloc, alloc_system, use_extern_macros))]
 #![no_std]
-#![cfg_attr(feature = "math", feature(core_float))]
 
 extern crate arrayvec;
-#[cfg(feature = "alloc")]
-extern crate alloc as core_alloc;
-#[cfg(feature = "alloc")]
-extern crate alloc_system;
-
-#[cfg(feature = "alloc")]
-#[global_allocator]
-static A: alloc_system::System = alloc_system::System;
-#[cfg(feature = "alloc")]
-pub use core_alloc::vec;
-#[cfg(feature = "alloc")]
-pub use core_alloc::format;
+#[macro_use(report)]
+extern crate gcn;
 
 pub mod game;
+mod lang_items;
 pub mod link;
 pub mod system;
 pub mod warping;
-mod lang_items;
 
 pub type Addr = usize;
 pub use link::Link;
@@ -66,11 +52,3 @@ impl fmt::Display for Coord {
         unsafe { write!(f, "{:.2}, {:.2}, {:.2}", self.x, self.y, self.z) }
     }
 }
-
-#[cfg(feature = "alloc")]
-pub mod alloc {
-    pub use core_alloc::vec::Vec;
-    pub use core_alloc::boxed::Box;
-    pub use core_alloc::string::String;
-}
-
